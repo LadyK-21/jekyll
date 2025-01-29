@@ -311,7 +311,7 @@ module Jekyll
           order = + 1
         else
           raise ArgumentError, "Invalid nils order: " \
-            "'#{nils}' is not a valid nils order. It must be 'first' or 'last'."
+                               "'#{nils}' is not a valid nils order. It must be 'first' or 'last'."
         end
 
         sort_input(input, property, order)
@@ -441,6 +441,14 @@ module Jekyll
       property.split(".").reduce(liquid_data) do |data, key|
         data.respond_to?(:[]) && data[key]
       end
+    rescue TypeError => e
+      msg = if liquid_data.is_a?(Array)
+              "Error accessing object (#{liquid_data.to_s[0...20]}) with given key. Expected an " \
+                "integer but got #{property.inspect} instead."
+            else
+              e.message
+            end
+      raise e, msg
     end
 
     FLOAT_LIKE   = %r!\A\s*-?(?:\d+\.?\d*|\.\d+)\s*\Z!.freeze

@@ -5,9 +5,7 @@ permalink: /docs/installation/macos/
 
 ## Supported macOS versions
 
-- Monterey (macOS 12)
-- Big Sur (macOS 11)
-- Catalina (macOS 10.15)
+We match [Homebrew's macOS requirements](https://docs.brew.sh/Installation#macos-requirements), which typically support the last 2 or 3 macOS versions.
 
 Older macOS versions might work, but we don't officially support them.
 
@@ -51,10 +49,10 @@ Install `chruby` and `ruby-install` with Homebrew:
 brew install chruby ruby-install
 ```
 
-Install the latest stable version of Ruby:
+Install the latest stable version of Ruby (supported by Jekyll):
 
 ```sh
-ruby-install ruby
+ruby-install ruby {{ site.data.ruby.current_version }}
 ```
 
 This will take a few minutes, and once it's done, configure your shell to 
@@ -63,7 +61,7 @@ automatically use `chruby`:
 ```sh
 echo "source $(brew --prefix)/opt/chruby/share/chruby/chruby.sh" >> ~/.zshrc
 echo "source $(brew --prefix)/opt/chruby/share/chruby/auto.sh" >> ~/.zshrc
-echo "chruby ruby-{{ site.data.ruby.current_version }}" >> ~/.zshrc
+echo "chruby ruby-{{ site.data.ruby.current_version }}" >> ~/.zshrc # run 'chruby' to see actual version
 ```
 
 If you're using Bash, replace `.zshrc` with `.bash_profile`. If you're not sure, 
